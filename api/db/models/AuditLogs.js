@@ -5,7 +5,7 @@ const schema = mongose.Schema({
     email: String,
     location: String,
     proc_type: String,
-    log: String
+    log: mongose.SchemaTypes.Mixed
 },{
     versionKey: false,
     timestamps: {

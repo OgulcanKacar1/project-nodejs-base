@@ -1,9 +1,10 @@
 const mongose = require('mongoose');
 
 const schema = mongose.Schema({
+    name: {type: String, required: true},
     is_active: {type: Boolean, default: true},
     created_by: {
-        type: mongose.Schema.Types.ObjectId, required: true
+        type: mongose.Schema.Types.ObjectId
     }
 },{
     versionKey: false,

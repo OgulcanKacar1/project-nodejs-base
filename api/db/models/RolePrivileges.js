@@ -5,7 +5,7 @@ const schema = mongose.Schema({
         type: mongose.Schema.Types.ObjectId, required: true}, 
     permission: {type: String, required: true},
     created_by: {
-        type: mongose.Schema.Types.ObjectId, required: true},
+        type: mongose.Schema.Types.ObjectId},
 },{
     versionKey: false,
     timestamps: {
