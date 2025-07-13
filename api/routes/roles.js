@@ -7,8 +7,14 @@ const RolePrivileges = require("../db/models/RolePrivileges");
 const CustomError = require("../lib/Error");
 const Enum = require("../config/Enum");
 const role_privileges = require("../config/role_privileges");
+const auth = require('../lib/auth')();
 
-router.get("/", async (req, res) => {
+
+router.all("*", auth.authenticate(), (req, res, next) => {
+    next();
+});
+
+router.get("/",auth.checkRoles("role_view"), async (req, res) => {
     try{
         let roles = await Roles.find({});
 
@@ -19,7 +25,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/add", async(req,res) =>{
+router.post("/add",auth.checkRoles("role_add"), async(req,res) =>{
     let body = req.body;
     try{
         if(!body.role_name) throw new CustomError(Enum.HTTP_CODES.BAD_REQUEST, "Validation Error!", "role_name field must be filled");
@@ -52,7 +58,7 @@ router.post("/add", async(req,res) =>{
     }
 });
 
-router.post("/update", async(req,res) =>{
+router.post("/update",auth.checkRoles("role_update"), async(req,res) =>{
     let body = req.body;
     try{
         if(!body._id) throw new CustomError(Enum.HTTP_CODES.BAD_REQUEST, "Validation Error!", "_id field must be filled");
@@ -94,7 +100,7 @@ router.post("/update", async(req,res) =>{
     }
 });
 
-router.post("/delete", async(req,res) =>{
+router.post("/delete",auth.checkRoles("role_delete"), async(req,res) =>{
     let body = req.body;
     try{
         if(!body._id) throw new CustomError(Enum.HTTP_CODES.BAD_REQUEST, "Validation Error!", "_id field must be filled");
