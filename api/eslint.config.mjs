@@ -13,7 +13,8 @@ export default [
     },
     rules: {
       "no-shadow": "error",
-      "no-unused-vars": "off"
+      "no-unused-vars": "off",
+      "no-empty": "warn"
     }
   }
 ];
